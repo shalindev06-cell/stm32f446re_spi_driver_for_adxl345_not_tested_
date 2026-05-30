@@ -2,8 +2,10 @@
 #define SPI1_TXE (1U<<1)
 #define SPI1_RXE (1U<<0)
 #define SPI1_BSY (1U<<7)
-
-
+/* * Configures the ADXL345 Accelerometer via bare-metal SPI1:
+ * 1. Writes 0x08 to DATA_FORMAT (0x31) to enable Full-Resolution Mode.
+ * 2. Writes 0x08 to POWER_CTL (0x2D) to wake the sensor up and start measuring.
+ */
 static uint8_t dummy_data;
 
 void write(void)
