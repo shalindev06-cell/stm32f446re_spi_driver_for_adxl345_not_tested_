@@ -2,7 +2,7 @@
 #define SPI1_BSY (1U<<7)
 #define SPI1_TXE (1U<<1)
 #define SPI1_RXE (1U<<0)
-
+// here we are reading the values from x y and z axis 
 static uint8_t dummy_data;
 void read(int16_t*x,int16_t*y,int16_t*z)
 {
