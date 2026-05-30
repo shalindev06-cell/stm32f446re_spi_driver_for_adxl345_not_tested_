@@ -4,7 +4,7 @@ WIP: SPI peripheral driver for the ADXL345 3-axis accelerometer, targeted for th
 
 Hey there! This is a bare-metal C driver for the ADXL345 3-axis accelerometer, written specifically for the **STM32F446RE** using STM32CubeIDE.
 
-### 🚀 Project Status
+###  Project Status
 * **Low-Level SPI Peripheral:** Fully tested and verified working on hardware! 
 * **Sensor Logic:** Work in progress. The ADXL345 register configurations and data-reading state machines are drafted but still need to be verified with the physical sensor.
 
