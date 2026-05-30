@@ -20,6 +20,7 @@ The SPI1 peripheral pins are mapped out to the sensor as follows:
 ###  Clock & Speed Configuration
 * **System Clock:** 16 MHz (Running on default HSI, no PLL required).
 * **SPI Baud Rate:** 500 kHz (SPI prescaler set to 32).
+* Uses SPI1 in this code and can be changed to any SPI but also need to change the pins accrding to which SPI module is used 
 * *Note: 500 kHz was chosen intentionally for initial testing. It provides highly reliable signal integrity over breadboard jumper wires while staying well within the ADXL345's 5 MHz maximum limit.*
 
 ### What's Left to Do
