@@ -1,32 +1,109 @@
-# spi_driver_for_adxl345
- SPI peripheral driver for the ADXL345 3-axis accelerometer, targeted for the STM32F446RE
-# ADXL345 Accelerometer Driver (Bare-Metal SPI)
+# STM32F446RE ADXL345 SPI Driver
 
-Hey there! This is a bare-metal C driver for the ADXL345 3-axis accelerometer, written specifically for the **STM32F446RE** using STM32CubeIDE.
+A bare-metal SPI driver for the ADXL345 3-axis accelerometer, developed and tested on the STM32F446RE using STM32CubeIDE.
 
-###  Project Status
-* **Low-Level SPI Peripheral:** Fully tested and verified working on hardware! 
-* **Sensor Logic:** tested and verified using a physichal hardware
-### How to Wire It Up
-The SPI1 peripheral pins are mapped out to the sensor as follows:
+## Overview
 
-* **PA4** → **CS** (Chip Select - Active Low)
-* **PA5** → **SCK** (Serial Clock)
-* **PA6** → **MISO** (Master In Slave Out / SDO)
-* **PA7** → **MOSI** (Master Out Slave In / SDA)
+This project demonstrates low-level SPI communication between an STM32F446RE and an ADXL345 accelerometer without using vendor-provided sensor libraries.
 
-*Make sure your breakout board is getting a safe, stable 3.3V supply!*
-###  Clock & Speed Configuration
-* **System Clock:** 16 MHz (Running on default HSI, no PLL required/can be changed if pll needed inside the spi_driver.c file ).
-* **SPI Baud Rate:** 500 kHz (SPI prescaler set to 32/can be changed inside the spi_driver.c file).
-* Uses SPI1 in this code and can be changed to any SPI but also need to change the pins accrding to which SPI module is used 
-* *Note: 500 kHz was chosen intentionally for initial testing. It provides highly reliable signal integrity over breadboard jumper wires while staying well within the ADXL345's 5 MHz maximum limit.*
+The goal of the project was to learn:
 
-### What's Left to Do
-- [ ] Connect the physical ADXL345 and verify the `DEVID` (0xE5) register read match(this is to check if the sensor is working in  the spi write function change the address to 0x80 and read the dummy data it will be 0xE5 if our sensor is recongonised )..
-- [ ] Convert the raw two's complement data into human-readable 'g' values.
+* SPI peripheral configuration
+* Register-level programming
+* Datasheet-driven development
+* Sensor interfacing
+* Embedded C programming
+* Hardware debugging and verification
 
-### Exploring the Code
-If you want to look at the driver architecture, switch over to the `before_testing` branch and check out the `Core/Src` and `Core/Inc` directories. 
+---
 
-This project is open-source under the Apache 2.0 License. Feel free to look around or adapt the SPI layer for your own hardware!
+## Project Status
+
+### SPI Driver
+
+* SPI peripheral configuration implemented
+* Register read and write operations implemented
+* Multi-byte register reads implemented
+* Tested and verified on hardware
+
+### ADXL345 Sensor Interface
+
+* Sensor configuration verified
+* X, Y, and Z acceleration data successfully acquired
+* Sensor orientation changes correctly reflected in measured values
+* Tested using a physical ADXL345 module
+
+---
+
+## Hardware Used
+
+* STM32F446RE
+* ADXL345 3-Axis Accelerometer
+* Breadboard and jumper wires
+* ST-Link debugger
+
+---
+
+## Wiring
+
+SPI1 is configured as follows:
+
+| STM32F446RE | ADXL345    |
+| ----------- | ---------- |
+| PA4         | CS         |
+| PA5         | SCK        |
+| PA6         | MISO (SDO) |
+| PA7         | MOSI (SDA) |
+
+**Note:** Ensure the ADXL345 is powered from a stable 3.3V supply.
+
+---
+
+## Clock and SPI Configuration
+
+* System Clock: 16 MHz (HSI)
+* SPI Peripheral: SPI1
+* SPI Baud Rate: 500 kHz
+* SPI Prescaler: 32
+
+The SPI clock was intentionally kept low during initial hardware verification to improve signal reliability on a breadboard setup.
+
+These values can be modified inside the driver source code if higher communication speeds are required.
+
+---
+
+## Hardware Verification
+
+The following functionality has been verified on real hardware:
+
+* SPI communication established successfully
+* Register writes completed successfully
+* Multi-byte acceleration register reads completed successfully
+* Raw X, Y, and Z acceleration values obtained
+* Acceleration values change correctly when the sensor orientation changes
+
+---
+
+## Future Improvements
+
+* Verify the DEVID register (expected value: 0xE5) during initialization
+* Convert raw acceleration values into units of g
+* Add calibration and offset compensation
+* Improve error handling
+* Support additional ADXL345 features such as interrupts and FIFO operation
+
+---
+
+## Repository Structure
+
+* `Core/Src/` - Driver source files
+* `Core/Inc/` - Header files
+* `chip_headers/` - Device and CMSIS headers
+
+---
+
+## License
+
+This project is licensed under the Apache 2.0 License.
+
+Feel free to use, modify, and learn from the code.
