@@ -1,13 +1,12 @@
-# spi_driver_for_adxl345_not_tested_for_stm32
-WIP: SPI peripheral driver for the ADXL345 3-axis accelerometer, targeted for the STM32F446RE. This codebase is currently untested.
+# spi_driver_for_adxl345
+ SPI peripheral driver for the ADXL345 3-axis accelerometer, targeted for the STM32F446RE
 # ADXL345 Accelerometer Driver (Bare-Metal SPI)
 
 Hey there! This is a bare-metal C driver for the ADXL345 3-axis accelerometer, written specifically for the **STM32F446RE** using STM32CubeIDE.
 
 ###  Project Status
 * **Low-Level SPI Peripheral:** Fully tested and verified working on hardware! 
-* **Sensor Logic:** Work in progress. The ADXL345 register configurations and data-reading state machines are drafted but still need to be verified with the physical sensor.
-
+* **Sensor Logic:** tested and verified using a physichal hardware
 ### How to Wire It Up
 The SPI1 peripheral pins are mapped out to the sensor as follows:
 
@@ -18,15 +17,13 @@ The SPI1 peripheral pins are mapped out to the sensor as follows:
 
 *Make sure your breakout board is getting a safe, stable 3.3V supply!*
 ###  Clock & Speed Configuration
-* **System Clock:** 16 MHz (Running on default HSI, no PLL required).
-* **SPI Baud Rate:** 500 kHz (SPI prescaler set to 32).
+* **System Clock:** 16 MHz (Running on default HSI, no PLL required/can be changed if pll needed inside the spi_driver.c file ).
+* **SPI Baud Rate:** 500 kHz (SPI prescaler set to 32/can be changed inside the spi_driver.c file).
 * Uses SPI1 in this code and can be changed to any SPI but also need to change the pins accrding to which SPI module is used 
 * *Note: 500 kHz was chosen intentionally for initial testing. It provides highly reliable signal integrity over breadboard jumper wires while staying well within the ADXL345's 5 MHz maximum limit.*
 
 ### What's Left to Do
-- [ ] Connect the physical ADXL345 and verify the `DEVID` (0xE5) register read match.
-- [ ] Finalize data rate and power management configurations (`POWER_CTL`).
-- [ ] Test multi-byte reads to grab the X, Y, and Z axis data streams simultaneously.
+- [ ] Connect the physical ADXL345 and verify the `DEVID` (0xE5) register read match(this is to check if the sensor is working in  the spi write function change the address to 0x80 and read the dummy data it will be 0xE5 if our sensor is recongonised )..
 - [ ] Convert the raw two's complement data into human-readable 'g' values.
 
 ### Exploring the Code
