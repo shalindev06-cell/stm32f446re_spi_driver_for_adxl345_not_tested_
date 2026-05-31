@@ -19,8 +19,9 @@ int main(void)
     SPI1->CR1 |= SPI1_EN;
     for (int i=0;i<90000;i++){}
     write();
+    while(1){
     read(&x,&y,&z);
-
+    }
 
     while(1)
     {
